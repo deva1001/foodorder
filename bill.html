@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill</title>
+    <style>
+        /* Styles as per the original code */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: lightyellow;
+        }
+        header {
+            background-color: #fff;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .bill-container {
+            padding: 20px;
+        }
+        .bill-items {
+            margin: 20px 0;
+        }
+        .bill-items h2 {
+            margin-bottom: 10px;
+        }
+        .bill-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .total {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: right;
+        }
+        .customer-details {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bill</h1>
+    </header>
+    <div class="bill-container">
+        <div class="customer-details" id="customer-details">
+            <!-- Customer details will be added here dynamically -->
+        </div>
+        <div class="bill-items" id="bill-items">
+            <!-- Bill items will be added here dynamically -->
+        </div>
+        <div class="total" id="total"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const billItemsContainer = document.getElementById('bill-items');
+            const totalElement = document.getElementById('total');
+            const customerDetailsContainer = document.getElementById('customer-details');
+            
+            let selectedItems = JSON.parse(localStorage.getItem('selectedItems')) || [];
+            const customerDetails = JSON.parse(localStorage.getItem('customerDetails')) || {};
+
+            // Clear the selectedItems to ensure only current session items are shown
+            localStorage.removeItem('selectedItems');
+
+            // Display customer details
+            customerDetailsContainer.innerHTML = `
+                <h2>Customer Details</h2>
+                <p>Name: ${customerDetails.name}</p>
+                <p>Phone: ${customerDetails.phone}</p>
+		<p>tableNumber: ${customerDetails.tableNumber}</p
+            `;
+
+            let totalAmount = 0;
+
+            // Display selected items and calculate total amount
+            selectedItems.forEach(item => {
+                const billItem = document.createElement('div');
+                billItem.classList.add('bill-item');
+                const itemPrice = 100 * item.quantity; // Assuming each item costs ₹100
+                totalAmount += itemPrice;
+
+                billItem.innerHTML = `
+                    <span>${item.name} x ${item.quantity}</span>
+                    <span>₹${itemPrice}</span>
+                `;
+                billItemsContainer.appendChild(billItem);
+            });
+
+            // Display total amount
+            totalElement.textContent = `Total: ₹${totalAmount}`;
+        });
+    </script>
+</body>
+</html>

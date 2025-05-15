@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>TASTE OF INDIA</h1>
+    </header>
+    <div class="container">
+        <div class="button-wrapper admin-wrapper">
+            <button class="button admin-button" onclick="handleAdmin()">Administration</button>
+        </div>
+        <div class="button-wrapper customer-wrapper">
+            <button class="button customer-button" onclick="handleCustomer()">Customer</button>
+        </div>
+    </div>
+
+    <script>
+        function handleAdmin() {
+            window.location.href = 'administration.html';
+        }
+
+        function handleCustomer() {
+            window.location.href = 'customer.html';
+        }
+    </script>
+</body>
+</html>
